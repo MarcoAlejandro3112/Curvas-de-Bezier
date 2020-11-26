@@ -1,0 +1,51 @@
+html{
+	box-sizing: border-box;
+	font-family: "Roboto",sans-serif;
+}
+
+*,*:after,*:before{
+	box-sizing: inherit;
+}
+
+body{
+	padding: 2rem;
+	background-color: #EBEDEF;
+}
+
+input[type="number"]{
+	width: 10rem;
+}
+
+.main{
+	margin:0px auto;
+	text-align: center;
+	width: 50%;
+}
+
+.btn{
+	background-color: #154360;
+	border:none;
+	padding: 0.2rem 1rem;
+	color:#fff;
+	cursor: pointer;
+	border-radius: 5%;
+}
+
+.btn2{
+	background-color: #154360;
+	border:none;
+	padding: 0.2rem 2.2rem;
+	color:#fff;
+	margin-top:0.3rem;
+	cursor: pointer;
+	border-radius: 5%;
+}
+
+.xy{
+	width: 5rem!important;
+	margin: 0.3rem 0rem;
+}
+
+#chartContainer{
+	margin-top:1rem;
+}
