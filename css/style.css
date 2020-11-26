@@ -8,8 +8,7 @@ html{
 }
 
 body{
-	padding: 2rem;
-	background-color: #EBEDEF;
+	padding: 1rem 2rem;
 }
 
 input[type="number"]{
