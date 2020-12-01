@@ -33,8 +33,9 @@ puntos()
 			for(j = 0;j <= 100;j++){
 				dat[j] = bezier(arr,j/100);
 			}
-			//mostrarFormula(dat);
 			Grafica(arr,dat)
+
+			mostrarFormula(arr);
 			document.getElementById("x1").value = 0;
 			document.getElementById("y1").value = 0;
 			for(i = 1;i<n;i++){
@@ -56,12 +57,16 @@ puntos()
 			let val = [parseFloat(x),parseFloat(y)]
 			arr.push(val)
 			n++;
+
 			if(n <=8){
 				let dat = [[]]
 				for(j = 0;j <= 100;j++){
 					dat[j] = bezier(arr,j/100);
 				}
 				Grafica(arr,dat)
+				mostrarFormula2(arr);
+
+
 			} else {
 				alert("No se pueden ingresar mas puntos, actualice la pagina para reiniciar el gráfico")
 			}
@@ -122,4 +127,3 @@ puntos()
 			});
 			chart.render();
 		}
-		

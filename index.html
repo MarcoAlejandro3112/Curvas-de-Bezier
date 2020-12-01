@@ -6,6 +6,7 @@
 	<!--BODY-->
 	 <script src="https://unpkg.com/mathjs@8.0.1/lib/browser/math.js"></script>
         <script type="text/javascript">
+
         	const binomial = [['0'],
             ['1'],
             ['1','1'],
@@ -109,6 +110,14 @@
 	<div id="formulaDeCurva">
     </div> 
         <script>
+        function mostrarFormula2(ejemplo){
+        	let formulaT = formula(ejemplo)
+	        let espacio = document.getElementById("formulaDeCurva")
+	        textos = espacio.getElementsByTagName("p")
+	        for(i = 0;i<=textos.length;i++){
+	        	textos[i].innerHTML = formulaT[i]
+	        }
+        }
         function mostrarFormula(ejemplo){
 	        let formulaT = formula(ejemplo)
 	        let linea1 = document.createElement("p")
