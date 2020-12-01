@@ -4,15 +4,127 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="css/style.css">
 	<!--BODY-->
+	 <script src="https://unpkg.com/mathjs@8.0.1/lib/browser/math.js"></script>
+        <script type="text/javascript">
+        	const binomial = [['0'],
+            ['1'],
+            ['1','1'],
+            ['1','2','1'],
+            ['1','3','3','1'],
+            ['1','4','6','4','1'],
+            ['1','5','10','10','5','1'],
+            ['1','6','15','20','15','6','1'],
+            ['1','7','21','35','35','21','7','1'],
+            ['1','8','28','56','70','56','28','8','1'],
+            ]
+
+            function formula(puntos){
+                let n = puntos.length
+                let ecuacion = new Array(4)
+                for(let i = 0; i < 4; ++i) ecuacion[i] = new Array(n)
+                for(let i = 0; i < 4; ++i){
+                    for(let j = 0; j < n; ++j){
+                        if(i == 0){
+                            ecuacion[i][j] = binomial[n][j]
+                            ecuacion[i][j] += 't'
+                            ecuacion[i][j] += '^(' + j + ')'
+                            ecuacion[i][j] += ' * (1-t)'
+                            ecuacion[i][j] += '^(' + (n - j - 1) + ')'
+                        }
+                        if(i == 1){
+                            ecuacion[i][j] = math.simplify(ecuacion[0][j]).toString()
+                        }
+                        if(i == 2){
+                            ecuacion[i][j] = ecuacion[1][j]
+                            ecuacion[i][j] += ' * '
+                            ecuacion[i][j] += puntos[j][0].toString()
+                            ecuacion[i][j] = math.simplify(ecuacion[2][j]).toString()
+                        }
+                        if(i == 3){
+                            ecuacion[i][j] = ecuacion[1][j]
+                            ecuacion[i][j] += ' * '
+                            ecuacion[i][j] += puntos[j][1].toString()
+                            ecuacion[i][j] = math.simplify(ecuacion[3][j]).toString()
+                        }
+                    }
+                }
+                let yS
+                for(let i = 0; i < puntos.length; ++i) yS = puntos[i][1]
+                let textos = new Array(3)
+                for(let i = 0; i < ecuacion.length; ++i){
+                    for(let j = 0; j < n; ++j){
+                        if(i == 0){
+                            if(j == 0) textos[i] = "c(t) = "
+                            textos[i] += "("
+                            textos[i] += ecuacion[i][j]
+                            textos[i] += ")"
+                            if(j != n - 1) textos[i] += " + "
+                        }
+                        if(i == 1){
+                            if(j == 0) textos[i] = "c(t) = "
+                            textos[i] += "("
+                            textos[i] += ecuacion[i][j]
+                            textos[i] += ")"
+                            textos[i] += "("
+                            textos[i] += puntos[j][0]
+                            textos[i] += ", "
+                            textos[i] += puntos[j][1]
+                            textos[i] += ")"
+                            if(j != n - 1) textos[i] += " + "
+                        }
+                        else if(i == 2){
+                            if(j == 0) textos[i] = "c(t) = "
+                            textos[i] += "("
+                            textos[i] += ecuacion[2][j]
+                            textos[i] += ")"
+                            if(j != n - 1) textos[i] += " + "
+                        }
+                        else if(i == 3) {
+                            if(j == 0) textos[i - 1] += "; "
+                            textos[i - 1] += "("
+                            textos[i - 1] += ecuacion[3][j]
+                            textos[i - 1] += ")"
+                            if(j != n - 1) textos[i - 1] += " + "
+                            if(j == n - 1){
+                                textos[i - 1] += "; t E ["
+                                textos[i - 1] += puntos[0][1]
+                                textos[i - 1] += ", "
+                                textos[i - 1] += puntos[puntos.length - 1][1]
+                                textos[i - 1] += "]"
+                            }
+                        }
+                    }
+                }
+                return textos
+            }
+        </script>
 	<div class="main">
-		<p>Ingrese el valor de N(Entre 3-8) </p>
+		<p>Ingrese las coordenadas del punto </p>
 		<div id="box">
-		<input id="n" type="number" min="3" max="8">
-		<input class="btn" onclick="puntos()" value="Enviar" type="submit">
 		</div>
 	</div>
-
 	<div id="chartContainer" style="height: 300px; width: 100%;"></div>
 	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 	<script src="js/script.js"></script>
+	<div id="formulaDeCurva">
+    </div> 
+        <script>
+        function mostrarFormula(ejemplo){
+	        let formulaT = formula(ejemplo)
+	        let linea1 = document.createElement("p")
+	        let texto1 = document.createTextNode(formulaT[0])
+	        let linea2 = document.createElement("p")
+	        let texto2 = document.createTextNode(formulaT[1])
+	        let linea3 = document.createElement("p")
+	        let texto3 = document.createTextNode(formulaT[2])
+	        linea1.appendChild(texto1)
+	        linea2.appendChild(texto2)
+	        linea3.appendChild(texto3)
+	        let espacio = document.getElementById("formulaDeCurva")
+	        espacio.appendChild(linea1);
+	        espacio.appendChild(linea2);
+	        espacio.appendChild(linea3);
+        }
+        </script>
+	
 </html>
